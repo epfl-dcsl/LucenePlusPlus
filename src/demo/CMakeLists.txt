@@ -39,3 +39,30 @@ add_executable(deletefiles
 target_link_libraries(deletefiles
   lucene++ boost_system
 )
+
+add_executable(termquery
+  "${lucene++-demo_SOURCE_DIR}/TermQueryBench/main.cpp"
+  ${demo_headers}
+)
+
+target_link_libraries(termquery
+  lucene++ boost_system
+)
+
+add_executable(indexreload
+  "${lucene++-demo_SOURCE_DIR}/IndexReload/main.cpp"
+  ${demo_headers}
+)
+
+target_link_libraries(indexreload
+  lucene++ boost_system
+)
+
+add_executable(valetbench
+  "${lucene++-demo_SOURCE_DIR}/valetBench/main.cpp"
+  ${demo_headers}
+)
+
+target_link_libraries(valetbench
+  lucene++ boost_system
+)
