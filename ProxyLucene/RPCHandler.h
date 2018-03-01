@@ -11,6 +11,10 @@
 
 #include <folly/Memory.h>
 #include <proxygen/httpserver/RequestHandler.h>
+#include <LuceneHeaders.h>
+#include <ParallelMultiSearcher.h>
+
+using namespace Lucene;
 
 namespace proxygen {
 class ResponseHandler;
