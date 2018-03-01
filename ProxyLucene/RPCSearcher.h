@@ -3,7 +3,7 @@
 
 using namespace Lucene;
 
-namespace RPCSearch {
+namespace RPCService {
 class RPCSearcher {
 public:
 	// Must be called before using the object.
@@ -11,7 +11,7 @@ public:
 	static RPCSearcher* Instance();
 	// TODO: get a collector.
 	void Search(QueryPtr query);
-	
+	void Search(String query);
 private:
 	RPCSearcher() {};
 	RPCSearcher(RPCSearcher const&) {};
@@ -19,6 +19,7 @@ private:
 
 	static RPCSearcher* s_instance;
 	static SearcherPtr searcher;
+	static QueryParserPtr parser;
 };
 
 } // Namespace RCPSearch

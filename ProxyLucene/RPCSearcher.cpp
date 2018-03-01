@@ -1,11 +1,12 @@
 #include <iostream>
 #include "RPCSearcher.h"
 
-using namespace RPCSearch;
+using namespace RPCService;
 using namespace Lucene;
 
 RPCSearcher* RPCSearcher::s_instance = NULL;
 SearcherPtr RPCSearcher::searcher = NULL;
+QueryParserPtr RPCSearcher::parser = NULL;
 
 void RPCSearcher::Init(std::vector<String> indices) {
 	Collection<SearchablePtr> searchers = Collection<SearchablePtr>::newInstance();
@@ -16,6 +17,9 @@ void RPCSearcher::Init(std::vector<String> indices) {
 		searchers.add(idxsearcher);
 	}
 	searcher = newLucene<ParallelMultiSearcher>(searchers);
+
+	AnalyzerPtr analyzer = newLucene<StandardAnalyzer>(LuceneVersion::LUCENE_CURRENT);
+	parser = newLucene<QueryParser>(LuceneVersion::LUCENE_CURRENT, L"contents", analyzer);
 }
 
 RPCSearcher* RPCSearcher::Instance() {
@@ -30,6 +34,13 @@ RPCSearcher* RPCSearcher::Instance() {
 }
 
 void RPCSearcher::Search(QueryPtr query) {
+	std::wcout << L"Starting a search\n";
+	searcher->search(query, FilterPtr(), 100);
+	std::wcout << L"Ending a search\n";
+}
 
+void RPCSearcher::Search(String query) {
+	QueryPtr q = parser->parse(query);
+	Search(q);
 }
 
